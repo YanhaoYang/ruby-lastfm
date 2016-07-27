@@ -7,27 +7,20 @@ describe '#geo' do
     @lastfm.geo.should be_an_instance_of(Lastfm::MethodCategory::Geo)
   end
 
-  describe '#get_events' do
-    it 'should get events' do
-      @lastfm.should_receive(:request).with('geo.getEvents', {
-        :location => 'Boulder',
-        :distance => nil,
-        :limit => nil,
+  describe '#get_top_artists' do
+    it 'should get top artists' do
+      @lastfm.should_receive(:request).with('geo.getTopArtists', {
+        :country => 'spain',
+        :limit => 5,
         :page => nil
-      }).and_return(make_response('geo_get_events'))
+      }).and_return(make_response('geo_get_top_artists'))
 
-      events = @lastfm.geo.get_events(:location => 'Boulder')
-      events.size.should == 1
-      events[0]['title'].should == 'Transistor Festival'
-      events[0]['artists'].size.should == 2
-      events[0]['artists']['headliner'].should == 'Not Breathing'
-      events[0]['venue']['name'].should == 'The Walnut Room'
-      events[0]['venue']['location']['city'].should == 'Denver, CO'
-      events[0]['venue']['location']['point']['lat'].should == '39.764316'
-      events[0]['image'].size.should == 4
-      events[0]['image'][0]['size'].should == 'small'
-      events[0]['image'][0]['content'].should == 'http://userserve-ak.last.fm/serve/34/166214.jpg'
-      events[0]['startDate'].should == 'Fri, 10 Jun 2011 01:58:01'
+      artists = @lastfm.geo.get_top_artists(:country => 'spain', limit: 5)
+      artists.size.should == 5
+      artists[0]['name'].should == 'David Bowie'
+      artists[0]['listeners'].should == "3101908"
+      artists[0]['image'].size.should == 5
+      artists[0]['image'][0]['size'].should == 'small'
     end
   end
 end

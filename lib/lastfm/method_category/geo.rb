@@ -2,15 +2,14 @@ class Lastfm
   module MethodCategory
     class Geo < Base
       regular_method(
-        :get_events,
+        :get_top_artists,
+        :required => [:country],
         :optional => [
-          [:location, nil],
-          [:distance, nil],
           [:limit, nil],
           [:page, nil]
         ]
       ) do |response|
-        response.xml['events']['event']
+        response.xml['topartists']['artist']
       end
     end
   end
