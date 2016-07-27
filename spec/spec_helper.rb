@@ -7,12 +7,12 @@ RSpec.configure do |config|
 
   def make_response(xml_filename_or_string)
     if xml_filename_or_string !~ /</
-      xml_filename_or_string = open(fixture(xml_filename_or_string + '.xml')).read
+      xml_filename_or_string = open(fixture(xml_filename_or_string + '.xml'), "r:utf-8").read
     end
 
     Lastfm::Response.new(xml_filename_or_string)
   end
-  
+
   def init_lastfm
     @lastfm = Lastfm.new('xxx', 'yyy')
     @response_xml = <<XML
