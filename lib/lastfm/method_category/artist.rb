@@ -4,9 +4,7 @@ class Lastfm
       regular_method(
         :get_top_tracks,
         :required => any_params([:artist], [:mbid])
-      ) do |response|
-        response.xml['toptracks']['track']
-      end
+      )
 
       regular_method(
         :get_top_albums,

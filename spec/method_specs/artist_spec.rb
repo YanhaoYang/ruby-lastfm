@@ -26,7 +26,7 @@ describe '#artist' do
       }).and_return(make_response('artist_get_top_tracks'))
 
       top_tracks = @lastfm.artist.get_top_tracks(:artist => 'Cher')
-      top_tracks.size.should > 1
+      top_tracks['toptracks']['track'].size.should > 1
     end
   end
 

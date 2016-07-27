@@ -15,10 +15,16 @@ describe '#geo' do
         :page => nil
       }).and_return(make_response('geo_get_top_artists'))
 
-      artists = @lastfm.geo.get_top_artists(:country => 'spain', limit: 5)
+      data = @lastfm.geo.get_top_artists(:country => 'spain', limit: 5)
+      topartists = data['topartists']
+      topartists['page'].should == '1'
+      topartists['perPage'].should == '5'
+      topartists['total'].should == '369711'
+      topartists['totalPages'].should == '73943'
+      artists = topartists['artist']
       artists.size.should == 5
       artists[0]['name'].should == 'David Bowie'
-      artists[0]['listeners'].should == "3101908"
+      artists[0]['listeners'].should == '3101908'
       artists[0]['image'].size.should == 5
       artists[0]['image'][0]['size'].should == 'small'
     end

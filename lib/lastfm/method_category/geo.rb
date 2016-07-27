@@ -8,9 +8,7 @@ class Lastfm
           [:limit, nil],
           [:page, nil]
         ]
-      ) do |response|
-        response.xml['topartists']['artist']
-      end
+      )
     end
   end
 end
